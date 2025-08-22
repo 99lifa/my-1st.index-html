@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wilberforce & Kelebogile Kgwadi 30th Anniversary (1995 - 2025)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, grey, gold, white);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    h2 {
+      color: #555;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+
+    form {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: gold;
+      border: none;
+      color: #333;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e6c300;
+    }
+
+    #guestMessages div {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wilberforce & Kelebogile Kgwadi</h1>
+    <p>30th Anniversary Celebration — 1995 to 2025</p>
+  </header>
+
+  <main>
+    <h2>Leave a Message</h2>
+    <form id="dropboxForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <label for="file">Upload a File (optional)</label>
+      <input type="file" id="file" name="file" />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <h2>Guest Messages</h2>
+    <div id="guestMessages"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('dropboxForm');
+    const guestMessages = document.getElementById('guestMessages');
+    let messages = [];
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+      const fileInput = document.getElementById('file');
+      const file = fileInput.files[0];
+
+      const newMessage = {
+        name: name,
+        message: message,
+        fileName: file ? file.name : "",
+        timestamp: new Date().toLocaleString()
+      };
+
+      messages.unshift(newMessage);
+      renderMessages();
+      form.reset();
+    });
+
+    function renderMessages() {
+      guestMessages.innerHTML = "";
+      messages.forEach(msg => {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>${msg.name}</strong> <em>(${msg.timestamp})</em><br>${msg.message}${msg.fileName ? `<br><small>File: ${msg.fileName}</small>` : ""}`;
+        guestMessages.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
